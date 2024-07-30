@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pattern Unlock Login</title>
+  <style>
+    #pattern-container {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      align-self: center;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; 
+    }
+  
+    #pattern-container {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Centers content horizontally */
+      align-items: center; /* Centers content vertically */
+      margin: 0 auto; /* Center the container horizontally */
+      position: absolute; /* Position it relative to the viewport */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Translate the container to the center */
+    }
+    #pattern-container {
+      background-color: whitesmoke;
+      width: 320px;
+      height: 320px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .pattern-dot {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .pattern-dot.active {
+      background-color: #333; /* Use background-color directly */
+    }
+    .pattern-dot {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .pattern-dot.active {
+      background-color: #333
+      background-width: 100px;
+      background-height:100px;
+    }
+    .container{
+      align-items: center;
+      box-align: center;
+    }
+    body{
+      background-color: yellowgreen;
+    }
+    text{
+      align-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pattern Unlock Login</h1>
+  <div id="pattern-container">
+    <div class="pattern-dot" id="dot-1"></div>
+    <div class="pattern-dot" id="dot-2"></div>
+    <div class="pattern-dot" id="dot-3"></div>
+    <div class="pattern-dot" id="dot-4"></div>
+    <div class="pattern-dot" id="dot-5"></div>
+    <div class="pattern-dot" id="dot-6"></div>
+    <div class="pattern-dot" id="dot-7"></div>
+    <div class="pattern-dot" id="dot-8"></div>
+    <div class="pattern-dot" id="dot-9"></div>
+  </div>
+  <p id="error-message"></p>
+  <script>
+    const patternContainer = document.getElementById('pattern-container');
+const dots = document.querySelectorAll('.pattern-dot');
+const errorMessage = document.getElementById('error-message');
+
+let pattern = [];
+let correctPattern = [5, 8, 6, 2]; // Replace with your desired pattern
+
+let line = null; // Variable to store the line element
+
+dots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+    pattern.push(index + 1);
+    dot.classList.add('active');
+
+    // Draw line if there are at least two dots in the pattern
+    if (pattern.length > 1) {
+      drawLine(pattern[pattern.length - 2], pattern[pattern.length - 1]);
+    }
+
+    if (pattern.length === correctPattern.length) {
+      checkPattern();
+    }
+  });
+});
+
+function drawLine(dot1, dot2) {
+  // Remove the previous line if it exists
+  if (line) {
+    patternContainer.removeChild(line);
+  }
+
+  // Create a new line element
+  line = document.createElement('div');
+  line.style.position = 'absolute';
+  line.style.backgroundColor = '#333'; // Match the active dot color
+  line.style.width = '1px';
+  line.style.height = '1px';
+
+  // Calculate line position and size
+  const dot1Rect = dots[dot1 - 1].getBoundingClientRect();
+  const dot2Rect = dots[dot2 - 1].getBoundingClientRect();
+  const x1 = dot1Rect.left + dot1Rect.width / 2;
+  const y1 = dot1Rect.top + dot1Rect.height / 2;
+  const x2 = dot2Rect.left + dot2Rect.width / 2;
+  const y2 = dot2Rect.top + dot2Rect.height / 2;
+  const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+  const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
+  line.style.width = length + 'px';
+  line.style.height = '2px'; // Adjust line thickness as needed
+  line.style.transformOrigin = '0% 50%'; // Set origin for rotation
+  line.style.transform = `rotate(${angle}deg) translateX(-50%)`; // Rotate and position line
+
+  // Add line to the container
+  patternContainer.appendChild(line);
+}
+
+function checkPattern() {
+  if (pattern.join(',') === correctPattern.join(',')) {
+    window.location.href = 'birthday4.html';
+  } else {
+    errorMessage.textContent = 'Improper pattern. Try again!';
+    pattern = [];
+    dots.forEach(dot => dot.classList.remove('active'));
+    if (line) { // Remove the line if it exists
+      patternContainer.removeChild(line);
+    }
+  }
+}
+function drawLine(dot1, dot2) {
+  // Remove the previous line if it exists
+  if (line) {
+    patternContainer.removeChild(line);
+  }
+
+  // Create a new line element
+  line = document.createElement('div');
+  line.style.position = 'absolute';
+  line.style.backgroundColor = '#333'; // Match the active dot color
+  line.style.width = '1px';
+  line.style.height = '1px';
+
+  // Calculate line position and size
+  const dot1Rect = dots[dot1 - 1].getBoundingClientRect();
+  const dot2Rect = dots[dot2 - 1].getBoundingClientRect();
+  const x1 = dot1Rect.left + dot1Rect.width / 2;
+  const y1 = dot1Rect.top + dot1Rect.height / 2;
+  const x2 = dot2Rect.left + dot2Rect.width / 2;
+  const y2 = dot2Rect.top + dot2Rect.height / 2;
+  const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+  const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
+  line.style.width = length + 'px';
+  line.style.height = '2px'; // Adjust line thickness as needed
+  line.style.transformOrigin = '50% 50%'; // Set origin for rotation to the center
+  line.style.transform = `rotate(${angle}deg) translateX(-50%)`; // Rotate and position line
+
+  // Add line to the container
+  patternContainer.appendChild(line);
+}
+  </script>
+  </script>
+</body>
+</html>
