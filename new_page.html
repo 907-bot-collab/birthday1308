@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #gallery {
+            margin: 2em;
+        }
+
+        .filter {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 1em;
+            justify-content: center; /* Center the filter buttons */
+        }
+
+        .filter-btn {
+            background-color: #333;
+            color: white;
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: #555;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Increased gap between images */
+            justify-content: center; /* Center the images */
+        }
+
+        .image {
+            width: 225px;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            height: 200px;
+            width: 200px;
+            display: block;
+            border-radius: 5px;
+            object-fit: cover;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="gallery">
+        <div class="filter">
+            <button class="filter-btn" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="main">your</button>
+            <button class="filter-btn" data-filter="main-part-2">you pics part-2</button>
+            <button class="filter-btn" data-filter="childhood">childhood</button>
+        </div>
+
+        <div class="image-container">
+            <div class="image main ">
+                <img src="needed/needed1-1.jpg" alt="main">
+                <img src="needed/needed1-2.jpg" alt="main">
+                <img src="needed/needed1-3.jpg" alt="main">
+                <img src="needed/needed1-4.jpg" alt="main">
+                <img src="needed/needed1-5.jpg" alt="main">
+                <img src="needed/needed1-6.jpg" alt="main">
+                <img src="needed/needed1-7.jpg" alt="main">
+                <img src="needed/needed1-8.jpg" alt="main">
+                <img src="needed/needed1-9.jpg" alt="main">
+                <img src="needed/needed1-10.jpg" alt="main">
+                <img src="needed/needed2-1.jpg" alt="main">
+                <img src="needed/needed2-2.jpg" alt="main">
+                <img src="needed/needed2-3.jpg" alt="main">
+                <img src="needed/needed2-4.jpg" alt="main">
+                <img src="needed/needed2-5.jpg" alt="main">
+                <img src="needed/needed2-6.jpg" alt="main">
+                <img src="needed/needed2-7.jpg" alt="main">
+                <img src="needed/needed2-8.jpg" alt="main">
+                <img src="needed/needed2-9.jpg" alt="main">
+                <img src="needed/needed2-10.jpg" alt="main">
+                <img src="needed/needed3-1.jpg" alt="main">
+                <img src="needed/needed3-2.jpg" alt="main">
+                <img src="needed/thug life.jpg" alt="main">
+                <img src="needed/needed3-4.jpg" alt="main">
+                <img src="needed/needed3-5.jpg" alt="main">
+
+            </div>
+            <div class="image main-part-2">
+                <img src="needed/needed3-6.jpg" alt="main-part-2">
+                <img src="needed/needed3-7.jpg" alt="main-part-2">
+                <img src="needed/needed3-8.jpg" alt="main-part-2">
+                <img src="needed/needed3-9.jpg" alt="main-part-2">
+                <img src="needed/needed3-10.jpg" alt="main-part-2">
+                <img src="needed/needed4-1.jpg" alt="main-part-2">
+                <img src="needed/needed4-2.jpg" alt="main-part-2">
+                <img src="needed/needed4-3.jpg" alt="main-part-2">
+                <img src="needed/needed4-4.jpg" alt="main-part-2">
+                <img src="needed/needed4-5.jpg" alt="main-part-2">
+                <img src="needed/needed4-6.jpg" alt="main-part-2">
+                <img src="needed/needed4-7.jpg" alt="main-part-2">
+                <img src="needed/needed4-8.jpg" alt="main-part-2">
+                <img src="needed/needed4-9.jpg" alt="main-part-2">
+                <img src="needed/needed4-10.jpg" alt="main-part-2">
+                <img src="needed/needed5-1.jpg" alt="main-part-2">
+                <img src="needed/needed5-2.jpg" alt="main-part-2">
+                <img src="needed/nibbi.jpg" alt="main-part-2">
+                <img src="needed/nostaligic-3.jpg" alt="main-part-2">
+                <img src="needed/mirror-1.jpg" alt="main-part-2">
+                <img src="needed/mirror-2.jpg" alt="main-part-2">
+                <img src="needed/mirror-3.jpg" alt="main-part-2">
+                <img src="needed/funny.jpg" alt="main-part-2">
+                <img src="needed/harry.jpg" alt="main-part-2">
+                <img src="needed/ghosted.jpg" alt="main-part-2">
+
+            </div>
+            <div class="image childhood">
+                <img src="needed/childhood-2.jpg" alt="childhood">
+                <img src="needed/childhood1.jpg" alt="childhood">
+                <img src="needed/childhood-3.jpg" alt="childhood">
+                <img src="needed/childhood-4.jpg" alt="childhood">
+                <img src="needed/childhood-5.jpg" alt="childhood">
+                <img src="needed/childhood-6.jpg" alt="childhood">
+                <img src="needed/childhood-7.jpg" alt="childhood">
+                <img src="needed/childhood-8.jpg" alt="childhood">
+                <img src="needed/childhood-9 (2).jpg" alt="childhood">
+                <img src="needed/childhood-10.jpg" alt="childhood">
+                <img src="needed/childhood-11.jpg" alt="childhood">
+                <img src="needed/childhood-13.jpg" alt="childhood">
+                <img src="needed/childhood-14.jpg" alt="childhood">
+                <img src="needed/childhood-15.jpg" alt="childhood">
+                <img src="needed/childhood-16.jpg" alt="childhood">
+                <img src="needed/childhood-17.jpg" alt="childhood">
+                <img src="needed/childhood-18.jpg" alt="childhood">
+                <img src="needed/childhood-19.jpg" alt="childhood">
+                <img src="needed/childhood-20.jpg" alt="childhood">
+                <img src="needed/childhood-21.jpg" alt="childhood">
+                <img src="needed/childhood-22.jpg" alt="childhood">
+                <img src="needed/childhood-23.jpg" alt="childhood">
+                <img src="needed/childhood-24.jpg" alt="childhood">
+                <img src="needed/childhood-25.jpg" alt="childhood">
+                <img src="needed/us-1.jpg" alt="childhood">
+            </div>
+            <!-- Add more images with appropriate categories -->
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const imageContainer = document.querySelector('.image-container');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', filterImages);
+            });
+
+            function filterImages(e) {
+                const category = e.target.getAttribute('data-filter');
+                const images = document.querySelectorAll('.image');
+
+                images.forEach(image => {
+                    image.style.display = 'none';
+
+                    if (category === 'all' || image.classList.contains(category)) {
+                        image.style.display = 'block';
+                    }
+                });
+            }
+        });
+    </script>
+    <div style="position: relative; top: 3; left: 2; background-color: greenyellow; color: white; padding: 10px;">
+        <a id="source-link" class="meta-link" href="cocacola.html" target="_blank" style="color: white;">
+          <i class="fas fa-link"></i>
+          <span class="roboto-mono" style="color: white;"><b> CLICK THIS bruh <b></span>
+      </a>
+      </div>
+</body>
+
+</html>
