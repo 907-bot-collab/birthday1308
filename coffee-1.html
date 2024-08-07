@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            font-family: Poppins;
+            margin: 0;
+            font-size: 16px;
+            background-color: #4f8b69;
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+        :root{
+            --border-color: #fff5;
+            --w-image: 500px;
+            --calculate: calc(3 / 2);
+        }
+        header{
+            display: grid;
+            grid-template-columns: 80px 1fr calc(var(--w-image) * var(--calculate));
+            grid-template-rows: 80px;
+            position: relative;
+            z-index: 10;
+        }
+        header .logo img{
+            width: 80%;
+        }
+        header .logo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        header nav a{
+            color: #000;
+            font-weight: 400;
+        }
+        header nav ul{
+            height: 100%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            gap: 30px;
+            padding-right: 30px;
+        }
+        .carousel{
+            margin-top: -80px;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .carousel .list{
+            height: 100%;
+            position: relative;
+        }
+        .carousel .list::before{
+            position: absolute;
+            width: var(--w-image);
+            height: 100%;
+            content: '';
+            top: 0;
+            left: calc(100% - calc(var(--w-image) * var(--calculate)));
+            z-index: 10;
+            pointer-events: none;
+        }
+        .carousel .list::after{
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            content: '';
+            background-color: red;
+            width: 400px;
+            height: 300px;
+            z-index: 10;
+            pointer-events: none;
+            border-radius: 20px  50px 110px  230px;
+            filter: blur(150px);
+            opacity: .6;
+        }
+        .carousel .list .item{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .carousel .list .item .image{
+            width: var(--w-image);
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: calc(100% - calc(var(--w-image) * var(--calculate)));
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: center;
+            font-weight: 500;
+        }
+        .carousel .list .item .image img{
+            width: 90%;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 150px 50px #9e0c0c55);
+        }
+        .carousel .list .item .image figcaption{
+            font-family: 'Aboreto';
+            font-weight: bold;
+            font-size: 1.3em;
+            text-align: right;
+            margin-bottom: 30px;
+            width: 70%;
+        }
+        .carousel .list .item .main-content{
+            height: 100%;
+            display: grid;
+            grid-template-columns: calc(100% - calc(var(--w-image) * var(--calculate)));
+        }
+        .carousel .list .item .main-content .content{
+            padding: 150px 20px  20px 80px;
+        }
+        .carousel .list .item .main-content .content h2{
+            font-size: 5em;
+            font-family: 'Aboreto';
+        }
+        .carousel .list .item .main-content .content .price{
+            font-family: 'Aboreto';
+            font-size: 3em;
+            margin: 20px 0;
+        }
+        .carousel .list .item .main-content .content .addToCard{
+            background-color: #4f8b69;
+            color: #fff;
+            padding: 10px  30px;
+            font-family: Poppins;
+            font-size: large;
+            font-weight: 500;
+            border-radius: 30px;
+            border: none;
+            margin-top: 20px;
+        }
+        .arrows{
+            position: absolute;
+            bottom: 20px;
+            width: calc(100% - calc(var(--w-image) * var(--calculate)));
+            display: grid;
+            grid-template-columns: repeat(2, 50px);
+            grid-template-rows: 50px;
+            justify-content: end;
+            gap: 10px;
+        }
+        .arrows button{
+            background-color: transparent;
+            color: #fff;
+            font-family: monospace;
+            font-size: large;
+            font-weight: bold;
+            line-height: 0;
+            box-shadow: 0 10px 40px #5555;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+        .arrows button:hover{
+            background-color: #eee5;
+        }
+        .carousel .list .item{
+            display: none;
+        }
+        .carousel .list .item.active,
+        .carousel .list .item.other_1,
+        .carousel .list .item.other_2{
+            display: block;
+        }
+        .carousel .list .item.active{
+            z-index: 2;
+        }
+        .carousel .list .item.other_1,
+        .carousel .list .item.other_2{
+            pointer-events: none;
+        }
+        .carousel .list .item.active .main-content{
+            animation: showContent 1s ease-in-out 1 forwards;
+        }
+        @keyframes showContent{
+            from{
+                clip-path: circle(0% at 70% 50%);
+            }to{
+                clip-path: circle(100% at 70% 50%);
+            }
+        }
+        .next .item.other_1{
+            z-index: 1;
+        }
+        .next .item .image img,
+        .next .item .image figcaption{
+            animation: effectNext .5s ease-in-out 1 forwards;
+        }
+        @keyframes effectNext{
+            from{
+                transform: translateX(calc(var(--transform-from)));
+            }to{
+                transform: translateX(calc(var(--transform-from) - var(--w-image)));
+            }
+        }
+        .next .item.active .image{
+            --transform-from: var(--w-image);
+        }
+        .next .item.other_1 .image{
+            z-index: 3;
+            --transform-from: 0px;
+            overflow: hidden;
+        }
+        .next .item.other_2 .image{
+            z-index: 3;
+            --transform-from: calc(var(--w-image) * 2);
+        }
+        .arrows{
+            z-index: 10;
+        }
+        /* prev */
+        .prev .list .item .image img,
+        .prev .list .item .image figcaption{
+            animation: effectPrev 0.5s ease-in-out 1 forwards;
+        }
+        @keyframes effectPrev{
+            from{
+                transform: translateX(calc(var(--transform-from)));
+            }to{
+                transform: translateX(calc(var(--transform-from) + var(--w-image)));
+            }
+        }
+        .prev .list .item.active .image{
+            --transform-from: calc(var(--w-image) * -1);
+            overflow: hidden;
+        }
+        .prev .list .item.other_1 .image{
+            --transform-from: 0px;
+            z-index: 3;
+        }
+        .prev .list .item.other_2 .image{
+            z-index: 3;
+            --transform-from: var(--w-image);
+        }
+        .prev .list .item.other_2 .main-content{
+            opacity: 0;
+        }
+        @media screen and (max-width: 1023px){
+            :root{
+                --calculate: 1;
+                --w-image: 400px; 
+            }
+            .carousel .list .item .main-content .content h2{
+                font-size: 3em;
+            }
+        }
+        @media screen and (max-width: 767px){
+            .carousel .list .item .image{
+                width: 100%;
+                left: 0;
+                justify-content: center;
+            }
+            .carousel .list .item .image figcaption{
+                color: #fff;
+                width: 100%;
+                text-align: center;
+            }
+            .carousel .list .item .main-content .content{
+                display: none;
+            }
+            .arrows{
+                left: 50%;
+                justify-content: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <figure class="logo">
+            <img src="needed-2/snap-7.jpg" alt="">
+        </figure>
+        <nav class="main-nav">
+            <ul>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="carousel next">
+            <div class="list">
+                <article class="item other_1">
+                    <div class="main-content" 
+                    style="background-color: #9c4d2f;">
+                        <div class="content">
+                            <h2>Mejor amiga (</h2>
+                            <p class="price"></p>
+                            <p class="description">
+                                my best BFF knows me better than anyone YOU know all about MY quirks and imperfections, YOU accept you for who you are. There is a feeling of warmth and safety in their presence that convinces you everything can be okay. This person supports you through thick and thin with encouragement, a shoulder to cry on and an ear for listening. You know, YOU-RE the one who knows all your secrets and dreams…and you knew he would keep them for safe among his treasures..
+                            </p>
+                        </div>
+                    </div>
+                     <figure class="image">
+                         <img src="needed-2/snap-8.jpg" alt="">
+                         <figcaption>
+
+                         </figcaption>
+                     </figure>
+                </article>
+                <article class="item active">
+                    <div class="main-content" 
+                    style="background-color: #f5bfaf;">
+                        <div class="content">
+                            <h2>PRICELESS GIFT</h2>
+                            <p class="price"></p>
+                            <p class="description">
+                                In times of joy, they’re there to share in your happiness, amplifying the joy of your successes and milestones. In moments of sorrow or struggle, they provide a shoulder to lean on, helping you navigate challenges with empathy and strength. A best friend is someone who makes ordinary moments special and memorable, often turning everyday experiences into cherished memories.
+                            </p>   
+                        </div>
+                    </div>
+                    <figure class="image">
+                        <img src="needed-2/snap-10.jpg" alt="">
+                        <figcaption>
+                        
+                        </figcaption>
+                    </figure>
+                </article>
+                <article class="item other_2">
+                    <div class="main-content" 
+                    style="background-color: #dedfe1;">
+                        <div class="content">
+                            <h2>THE BEST STRESS product</h2>
+                            <p class="price"></p>
+                            <p class="description">
+                                This relationship is built on mutual respect, honesty, and a profound sense of loyalty. It’s not just about shared interests or experiences, but also about a deep emotional bond that remains strong even when you're apart. They can offer constructive criticism while still being your biggest cheerleader, striking a balance between honesty and kindness..
+                            </p>
+                            
+                        </div>
+                    </div>
+                    <figure class="image">
+                        <img src="needed-2/snap-11.jpg" alt="">
+                        <figcaption></figcaption>
+                    </figure>
+                </article>
+                <article class="item">
+                    <div class="main-content" 
+                    style="background-color: #7eb63d;">
+                        <div class="content">
+                            <h2>THE CONCLUSION</h2>
+                            <p class="price"></p>
+                            <p class="description">
+                                ltimately, a best friend is like a chosen family member—someone who enriches your life, helps you grow, and makes your journey through life more meaningful and enjoyable.
+                            </p>
+                            
+                        </div>
+                    </div>
+                    <figure class="image">
+                        <img src="needed-2/snap-4.jpg" alt="">
+                        <figcaption></figcaption>
+                    </figure>
+                </article>
+            </div>
+            <div class="arrows">
+                <button id="prev">prev</button>
+                <button id="next">next</button>
+                
+            </div>
+            
+        </section>
+    </main>
+    <script>
+        let next = document.getElementById('next');
+        let prev = document.getElementById('prev');
+        let carousel = document.querySelector('.carousel');
+        let items = document.querySelectorAll('.carousel .item');
+        let countItem = items.length;
+        let active = 1;
+        let other_1 = null;
+        let other_2 = null;
+        next.onclick = () => {
+            carousel.classList.remove('prev');
+            carousel.classList.add('next');
+            active =active + 1 >= countItem ? 0 : active + 1;
+            other_1 =active - 1 < 0 ? countItem -1 : active - 1;
+            other_2 = active + 1 >= countItem ? 0 : active + 1;
+            changeSlider();
+        }
+        prev.onclick = () => {
+            carousel.classList.remove('next');
+            carousel.classList.add('prev');
+            active = active - 1 < 0 ? countItem - 1 : active - 1;
+            other_1 = active + 1 >= countItem ? 0 : active + 1;
+            other_2 = other_1 + 1 >= countItem ? 0 : other_1 + 1;
+            changeSlider();
+        }
+        const changeSlider = () => {
+            let itemOldActive = document.querySelector('.carousel .item.active');
+            if(itemOldActive) itemOldActive.classList.remove('active');
+
+            let itemOldOther_1 = document.querySelector('.carousel .item.other_1');
+            if(itemOldOther_1) itemOldOther_1.classList.remove('other_1');
+
+            let itemOldOther_2 = document.querySelector('.carousel .item.other_2');
+            if(itemOldOther_2) itemOldOther_2.classList.remove('other_2');
+
+            items.forEach(e => {
+                e.querySelector('.image img').style.animation = 'none';
+                e.querySelector('.image figcaption').style.animation = 'none';
+                void e.offsetWidth;
+                e.querySelector('.image img').style.animation = '';
+                e.querySelector('.image figcaption').style.animation = '';
+            })
+
+            items[active].classList.add('active');
+            items[other_1].classList.add('other_1');
+            items[other_2].classList.add('other_2');
+
+            clearInterval(autoPlay);
+            autoPlay = setInterval(() => {
+                next.click();
+            }, 5000);
+        }
+        let autoPlay = setInterval(() => {
+            next.click();
+        }, 5000);
+    </script>
+</body>
+</html>
