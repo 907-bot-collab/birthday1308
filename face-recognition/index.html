@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Face Recognition Dashboard</title>
+  <style>
+    /* Add some basic styling to the page */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #video-container {
+      width: 640px;
+      height: 480px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1>Face Recognition Dashboard</h1>
+  <div id="video-container">
+    <canvas id="video-canvas" width="640" height="480"></canvas>
+  </div>
+  <script>
+    // Load the WASM module
+    const wasmModule = await WebAssembly.instantiateStreaming(fetch('face_recognition.wasm'));
+
+    // Get the video canvas element
+    const videoCanvas = document.getElementById('video-canvas');
+    const videoCtx = videoCanvas.getContext('2d');
+
+    // Define a function to update the video canvas
+    function updateVideoCanvas(jpegFrame) {
+      // Create a new image element from the JPEG frame
+      const img = new Image();
+      img.onload = () => {
+        // Draw the image on the video canvas
+        videoCtx.drawImage(img, 0, 0);
+      };
+      img.src = URL.createObjectURL(new Blob([jpegFrame], { type: 'image/jpeg' }));
+    }
+
+    // Call the WASM module's main function to start the video feed
+    wasmModule.instance.exports.main();
+
+    // Update the video canvas every 30 milliseconds
+    setInterval(() => {
+      // Call the WASM module's main function to get the latest JPEG frame
+      const jpegFrame = wasmModule.instance.exports.main();
+      updateVideoCanvas(jpegFrame);
+    }, 30);
+  </script>
+</body>
+</html>
