@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Replit</title>
+  <style>
+    *,
+    *:after,
+    *:before {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: light only;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family:  "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
+    }
+
+    body::before {
+      --size: 60px;
+      --line: hsl(0 0% 0% / 0.15);
+      content: '';
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      background: linear-gradient(
+            90deg,
+            var(--line) 1px,
+            transparent 1px var(--size)
+          )
+          50% 50% / var(--size) var(--size),
+        linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
+          var(--size) var(--size);
+      mask: linear-gradient(-15deg, transparent 30%, white);
+      top: 0;
+      transform-style: flat;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: monospace;
+      text-transform: uppercase;
+    }
+
+    header {
+      padding: 8rem 0 2rem;
+    }
+
+    .content {
+      width: 700px;
+      max-width: calc(100% - 2rem);
+      margin: 0 auto;
+    }
+
+    .drop {
+      --drop: clamp(1.5rem, 1vw + 1rem, 6rem); 	
+      height: var(--drop);
+      width: calc(var(--drop) * 2.25);
+      aspect-ratio: 4 / 3;
+      float: left;
+      position: relative;
+      shape-outside: inset(0 0 0 0);
+    }
+
+    .drop::after {
+      content: "CSS";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      line-height: 2rem;
+      font-size: calc(var(--drop) * 1);
+      font-weight: 600;
+      text-align: left;
+      place-items: start;
+    }
+
+    .quote-holder {
+      position: absolute;
+      left: calc(100% + (var(--gap) * 0.5));
+      top: calc(var(--y) * 1%);
+      height: calc(var(--size) * 2px);
+      aspect-ratio: 1;
+      background: radial-gradient(white 0% 50%, transparent 70%);
+      translate: -50% -50%;
+      border-radius: 50%;
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.5rem;
+      text-align: center;
+      container-type: inline-size;
+      display: grid;
+      place-items: center;
+    }
+
+    blockquote {
+      margin: 0;
+      text-align: center;
+      font-size: 14cqi;
+    }
+
+    .columns {
+      display: flex;
+      gap: var(--gap);
+    }
+
+    :root {
+      --size: 100;
+      --y: 200;
+      --x: 50;
+      --gap: 1rem;
+    }
+
+    .outside {
+      position: relative;
+      width: calc(var(--size) * 1px);
+      height: calc(100% + (var(--size) * 1px));
+    }
+
+    .column:first-of-type .outside {
+      float: right;
+      shape-outside: circle(calc(var(--size) * 1px) at 100% calc(var(--y) * 1%));
+    }
+    .column:last-of-type .outside {
+      float: left;
+      shape-outside: circle(calc(var(--size) * 1px) at 0 calc(var(--y) * 1%));
+    }
+
+    .columns p {
+      font-size: .875rem;
+      text-align: justify;
+    }
+
+    .outside {
+      float: right;
+      shape-outside: circle(50%);
+    }
+    /* Social */
+    .bear-link {
+      color: canvasText;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      width: 48px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      opacity: 0.8;
+    }
+
+    :where(.x-link, .bear-link):is(:hover, :focus-visible) {
+      opacity: 1;
+    }
+    .bear-link svg {
+      width: 75%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <header>
+      <h1>BESTFRIEND - MACHA</h1>
+    </header>
+    <main>
+      <div class="columns">
+        <div class="column">
+          <div class="outside">
+            <div class="quote-holder">
+              <blockquote aria-hidden="true">AMIGO.</blockquote>
+            </div>
+          </div>
+          <p>
+            <span class="drop"></span>
+            THIS MIGHT BE THE LAST ONE OF THE PROGRAM THAT I AM SENDING YOU , I HOPE YOU WILL DEFINETLY LIKE THIS, I TRIED SO HARD, I HOPE YOU LIKE THIS , THANK YOU FOR COMING TILL THIS LONG WAY BELIVING ME .
+          </p>
+          <p>
+            THANK YOU FOR CHOOSING ME AS YOUR BESTFRIEND OVER EVERYONE , THANK YOU FOR GAURDING ME , UPLIFTING ME IN MY TOUGH TIMES, .
+          </p>
+          <p>
+            EVEN THOUGH I AM PURLY IMPERFECT FOR YOU AND MADE YOU FEEL INSECURE , YOU STILL SUPPORTED ME AND BELIVED IN OUR FRIENDSHIP THANK YOU FOR HAVING FAITH IN ME AND FAITH IN OUR BOND.
+          </p>
+          <p>
+            IF I START TELLING YOU ABOUT HOW I FEEL , THESE PARAGRAPHS WON'T BE ENOUGH, THE NUMBER OF CODES AREN'T ENOUGH TO DECIDE HOW MUCH YOU CARE FOR ME IN THOUGH IN YOU HARDSHIPS YOU STOOD BY MY SIDE , AND DIDN'T REALISE ABOUT YOUR SAKE .
+          </p>
+          <p>
+            EVEN THOUGH THERE ARE 100 REASONS TO GET DEPARTED LET ME FIND MY 1 MORE REASON TO MAKE US DWELL IN HAPPINESS AND PEACE OF OUR FRIENDSHIP!, YOU WILL ALWAYS BE THE SYMBOL OF FRIENDSHIP IN MY LIFE, MY LIFE WOULDN'T BE EASY WITHOUR YOU AND WITH YOU AROUND LIFE BECAME EASY, HAPPY , JOYFUL ,COURAGING , AND HAPPY , I WILL ALWAYS BE THERE FOR YOU , IF YOU EVER CALL ME I WILL BE BEHIND YOU FOR YOUR HAPPINESS, INFRONT OF YOUR FEARS, BESIDE YOU WHEN YOU FEAR, AND ALWAYS BEHIND YOU WHEN YOU CHOOSE TO BE HAPPY.
+          </p>
+        </div>
+        <div class="column">
+          <div class="outside"></div>
+          <p>
+            I WILL ALWAYS BE WHEN YOU NEED ME, THESE WORDS AREN'T ENOUGH TO DESCRIBE THE BOND WE SHARE , THANK YOU FOR ALWAYS CHOOSING ME. EVEN THOUGH IN THE FUTURE IF WE MAY NOT TALK , DO NOT FEEL SO SAD , CAUSE WE HAVE SHARED THE BEST BOND EVER, NO MATTER OF THE SITUATION.
+          </p>
+          <p>
+            IF YOU EVER CALL ME I WILL BE BEHIND YOU FOR YOUR HAPPINESS, INFRONT OF YOUR FEARS, BESIDE YOU WHEN YOU FEAR, AND ALWAYS BEHIND YOU WHEN YOU CHOOSE TO BE HAPPY
+          </p>
+          <p>
+            I just wanted to take a moment to tell you how much you mean to me. You’re not just my best friend; you’re like family. Your support, laughter, and understanding make all the difference in my life. No matter what’s going on, knowing I have you by my side makes everything better.
+          </p>
+          <p>
+
+            Thanks for always being there, for the endless laughs, and for just being you. I truly appreciate everything you do and all the little things that make our friendship so special.
+
+            Here’s to many more adventures and memories together! 💖
+            once again HAPPIEST BIRTHDAY MACHAA, MISSING OUR VERY OWN BOND.
+          </p>
+          
+        </div>
+      </div>
+    </main>
+  </div>
+  <a
+    class="bear-link"
+    href="crush-bday/birthday/index.html"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    <svg
+      class="w-9"
+      viewBox="0 0 969 955"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="161.191"
+        cy="320.191"
+        r="133.191"
+        stroke="currentColor"
+        stroke-width="20"
+      ></circle>
+      <circle
+        cx="806.809"
+        cy="320.191"
+        r="133.191"
+        stroke="currentColor"
+        stroke-width="20"
+      ></circle>
+      <circle
+        cx="695.019"
+        cy="587.733"
+        r="31.4016"
+        fill="currentColor"
+      ></circle>
+      <circle
+        cx="272.981"
+        cy="587.733"
+        r="31.4016"
+        fill="currentColor"
+      ></circle>
+      <path
+        d="M564.388 712.083C564.388 743.994 526.035 779.911 483.372 779.911C440.709 779.911 402.356 743.994 402.356 712.083C402.356 680.173 440.709 664.353 483.372 664.353C526.035 664.353 564.388 680.173 564.388 712.083Z"
+        fill="currentColor"
+      ></path>
+      <rect
+        x="310.42"
+        y="448.31"
+        width="343.468"
+        height="51.4986"
+        fill="#FF1E1E"
+      ></rect>
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M745.643 288.24C815.368 344.185 854.539 432.623 854.539 511.741H614.938V454.652C614.938 433.113 597.477 415.652 575.938 415.652H388.37C366.831 415.652 349.37 433.113 349.37 454.652V511.741L110.949 511.741C110.949 432.623 150.12 344.185 219.845 288.24C289.57 232.295 384.138 200.865 482.744 200.865C581.35 200.865 675.918 232.295 745.643 288.24Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </a>
+
+  <script>
+    import { Pane } from 'https://cdn.skypack.dev/tweakpane'
+
+    const CONFIG = {
+      size: 120,
+      y: 30,
+    }
+
+    const CTRL = new Pane({ title: 'Configuration', expanded: false })
+
+    const update = () => {
+      document.documentElement.style.setProperty('--size', CONFIG.size)
+      document.documentElement.style.setProperty('--y', CONFIG.y)
+    }
+
+    CTRL.addBinding(CONFIG, 'size', { min: 50, step: 1, max: 300, label: 'Size (px)' })
+    CTRL.addBinding(CONFIG, 'y', { min: 0, step: 1, max: 100, label: 'Y (%)' })
+
+    CTRL.on('change', update)
+    update()
+  </script>
+
+</body>
+
+</html>
