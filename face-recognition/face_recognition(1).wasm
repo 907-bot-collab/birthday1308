@@ -1,0 +1,1 @@
+pyodide compile --target wasm32-unknown-unknown face_recognition.py
