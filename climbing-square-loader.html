@@ -1,0 +1,79 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Replit</title>
+  <style>
+    #loader{
+      --_cube-width: clamp(300px, 15vw, 600px);
+      --_animation-speed: 2s;
+
+      position: absolute;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(90deg, #222, #000);
+      overflow: hidden;
+    }
+    #loaderElement{
+      position: absolute;
+      inset: 0;
+      rotate: -45deg;
+    }
+    #loaderCube{
+      position: absolute;
+      top: 50%;
+      left: calc(50% - var(--_cube-width) / 2);
+      translate: -50% -50%;
+      width: var(--_cube-width);
+      aspect-ratio: 1;
+      background: #444;
+      transform-origin: bottom right;
+      animation: loaderCubeMove var(--_animation-speed) linear infinite;
+    }
+    #loaderGrass{
+      position: absolute;
+      bottom: 0;
+      top: calc(50% + var(--_cube-width) / 2);
+      inset-inline: -100vw;
+      background: linear-gradient(90deg, #000, #222);
+      height: 100vw;
+    }
+
+    @keyframes loaderCubeMove {
+      0%, 40%{
+        tranform: rotate(0);
+      }
+      50%, 80%{
+        transform: rotate(90deg);
+      }
+      90%{
+        transform: rotate(90deg) translateY(var(--_cube-width));
+      }
+      100%{
+        transform: rotate(90deg) translateY(var(--_cube-width));
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loader">
+    <div id="loaderElement">
+      <div id="loaderCube"></div>
+    <div id="loaderGrass"></div>
+    </div>
+  </div>
+  <script>
+    // Redirect to Page 2 after 3 seconds
+      setTimeout(function() {
+          location.href = 'page2.html';
+      }, 3000);
+  </script>
+
+</body>
+
+</html>
