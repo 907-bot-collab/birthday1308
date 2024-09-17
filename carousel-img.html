@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+  </title>
+  <style>
+    *,
+    *:after,
+    *:before {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      display: flex;
+      justify-content: flex-end;
+      min-height: 100vh;
+      font-family:  "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      right: 0;
+      width: calc(var(--snap-size) + 2rem);
+      background: canvas;
+      mask: linear-gradient(white, transparent calc(var(--snap-size) * 1.5) calc(100% - (var(--snap-size) * 1.5)), white);
+      top: 0;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    body::before {
+      --size: 40px;
+      --line: color-mix(in lch, canvasText 15%, hsl(0 0% 100% / 0.25));
+      content: '';
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      background: linear-gradient(
+            90deg,
+            var(--line) 1px,
+            transparent 1px var(--size)
+          )
+          50% 50% / var(--size) var(--size),
+        linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
+          var(--size) var(--size);
+      mask: linear-gradient(-25deg, transparent 65%, white);
+      top: 0;
+      transform-style: flat;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    html {
+      color-scheme: dark only;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    :root {
+      --count: 50;
+      --snap-size: 48px;
+      --offset: 1;
+    }
+
+    @media(min-width: 768px) {
+      :root {
+        --offset: 2;
+      }
+    }
+
+    main {
+      padding-left: 1rem;
+      padding-right: calc(var(--snap-size) * 5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      height: calc(100vh * var(--count));
+      grid-template-rows: repeat(var(--count), 1fr);
+      place-items: center;
+      animation: img-reel both steps(calc(var(--count) - 1));
+      animation-timeline: scroll(root);
+      pointer-events: none;
+    }
+
+    @media(max-width: 768px) {
+      main {
+        display: none;
+      }
+    }
+
+    @keyframes img-reel {
+      to {
+        translate: 0 calc(-100% + 100vh);
+      }
+    }
+
+    aside {
+      width: var(--snap-size);
+      margin-top: calc(50vh - (var(--snap-size) * 0.25));
+      margin-bottom: calc(50vh - (var(--snap-size) * 0.5));
+      z-index: 2;
+    }
+
+    aside ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      list-style-type: none;
+      position: relative;
+      right: 1rem;
+      align-items: flex-end;
+      transform-style: preserve-3d;
+    }
+
+    @property --active {
+      initial-value: 0;
+      inherits: true;
+      syntax: '<number>';
+    }
+
+    li {
+      scroll-snap-align: center;
+      scroll-margin-block: calc(50vh - var(--snap-size));
+      container-type: size;
+      flex: 1 1 var(--snap-size);
+      aspect-ratio: 1;
+      animation: scale both linear;
+      animation-timeline: view();
+      animation-range: cover calc(50% - (var(--snap-size) * var(--offset))) cover calc(50% + (var(--snap-size) * var(--offset)));
+      transform-origin: 100% 50%;
+    }
+
+    @media(min-width: 768px) {
+      li {
+        filter: saturate(0.2);
+        animation: scale-l both linear;
+        animation-timeline: view();
+        animation-range: cover calc(50% - (var(--snap-size) * var(--offset))) cover calc(50% + (var(--snap-size) * var(--offset)));
+      }
+    }
+
+    @keyframes scale {
+      50% {
+        --active: 1;
+        z-index: 1000;
+      }
+    }
+
+    @keyframes scale-l {
+      50% {
+        translate: -120% 0;
+        scale: 2;
+        transform: translate3d(0, 0, 1000px);
+        filter: saturate(1);
+        z-index: 1000;
+      }
+    }
+
+    li img {
+      height: 100%;
+      width: 100%;
+      border-radius: 6px;
+    }
+
+
+
+    li a {
+      min-width: 100cqw;
+      min-height: 100cqh;
+      max-width: 600px;
+      max-height: 600px;
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 4px solid transparent;
+      border-radius: 12px;
+      position: relative;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform-origin: 100% 50%;
+      translate: calc((var(--active) * (var(--snap-size) + 1rem)) * -1) -50%;
+      width: calc((var(--active) * (100vw - (var(--snap-size) + 3rem))));
+      height: calc((var(--active) * (100vw - (var(--snap-size) + 3rem))));
+      aspect-ratio: 1;
+      z-index: calc(1 + (var(--active) * 999));
+    }
+
+    aside span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    main img {
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      object-fit: cover;
+    }
+
+    .bear-link {
+      color: canvasText;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      width: 48px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      opacity: 0.8;
+    }
+
+    :where(.x-link, .bear-link):is(:hover, :focus-visible) {
+      opacity: 1;
+    }
+    .bear-link svg {
+      width: 75%;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <nav>
+      <ul>
+        <li id="img-1">
+          <a href="#img-1"
+            ><img src="https://picsum.photos/600/600?random=1" alt="" /><span
+              >See image 1</span
+            ></a
+          >
+        </li>
+        <li id="img-2">
+          <a href="#img-2"
+            ><img src="https://picsum.photos/600/600?random=2" alt="" /><span
+              >See image 2</span
+            ></a
+          >
+        </li>
+        <li id="img-3">
+          <a href="#img-3"
+            ><img src="https://picsum.photos/600/600?random=3" alt="" /><span
+              >See image 3</span
+            ></a
+          >
+        </li>
+        <li id="img-4">
+          <a href="#img-4"
+            ><img src="https://picsum.photos/600/600?random=4" alt="" /><span
+              >See image 4</span
+            ></a
+          >
+        </li>
+        <li id="img-5">
+          <a href="#img-5"
+            ><img src="https://picsum.photos/600/600?random=5" alt="" /><span
+              >See image 5</span
+            ></a
+          >
+        </li>
+        <li id="img-6">
+          <a href="#img-6"
+            ><img src="https://picsum.photos/600/600?random=6" alt="" /><span
+              >See image 6</span
+            ></a
+          >
+        </li>
+        <li id="img-7">
+          <a href="#img-7"
+            ><img src="https://picsum.photos/600/600?random=7" alt="" /><span
+              >See image 7</span
+            ></a
+          >
+        </li>
+        <li id="img-8">
+          <a href="#img-8"
+            ><img src="https://picsum.photos/600/600?random=8" alt="" /><span
+              >See image 8</span
+            ></a
+          >
+        </li>
+        <li id="img-9">
+          <a href="#img-9"
+            ><img src="https://picsum.photos/600/600?random=9" alt="" /><span
+              >See image 9</span
+            ></a
+          >
+        </li>
+        <li id="img-10">
+          <a href="#img-10"
+            ><img src="https://picsum.photos/600/600?random=10" alt="" /><span
+              >See image 10</span
+            ></a
+          >
+        </li>
+        <li id="img-11">
+          <a href="#img-11"
+            ><img src="https://picsum.photos/600/600?random=11" alt="" /><span
+              >See image 11</span
+            ></a
+          >
+        </li>
+        <li id="img-12">
+          <a href="#img-12"
+            ><img src="https://picsum.photos/600/600?random=12" alt="" /><span
+              >See image 12</span
+            ></a
+          >
+        </li>
+        <li id="img-13">
+          <a href="#img-13"
+            ><img src="https://picsum.photos/600/600?random=13" alt="" /><span
+              >See image 13</span
+            ></a
+          >
+        </li>
+        <li id="img-14">
+          <a href="#img-14"
+            ><img src="https://picsum.photos/600/600?random=14" alt="" /><span
+              >See image 14</span
+            ></a
+          >
+        </li>
+        <li id="img-15">
+          <a href="#img-15"
+            ><img src="https://picsum.photos/600/600?random=15" alt="" /><span
+              >See image 15</span
+            ></a
+          >
+        </li>
+        <li id="img-16">
+          <a href="#img-16"
+            ><img src="https://picsum.photos/600/600?random=16" alt="" /><span
+              >See image 16</span
+            ></a
+          >
+        </li>
+        <li id="img-17">
+          <a href="#img-17"
+            ><img src="https://picsum.photos/600/600?random=17" alt="" /><span
+              >See image 17</span
+            ></a
+          >
+        </li>
+        <li id="img-18">
+          <a href="#img-18"
+            ><img src="https://picsum.photos/600/600?random=18" alt="" /><span
+              >See image 18</span
+            ></a
+          >
+        </li>
+        <li id="img-19">
+          <a href="#img-19"
+            ><img src="https://picsum.photos/600/600?random=19" alt="" /><span
+              >See image 19</span
+            ></a
+          >
+        </li>
+        <li id="img-20">
+          <a href="#img-20"
+            ><img src="https://picsum.photos/600/600?random=20" alt="" /><span
+              >See image 20</span
+            ></a
+          >
+        </li>
+        <li id="img-21">
+          <a href="#img-21"
+            ><img src="https://picsum.photos/600/600?random=21" alt="" /><span
+              >See image 21</span
+            ></a
+          >
+        </li>
+        <li id="img-22">
+          <a href="#img-22"
+            ><img src="https://picsum.photos/600/600?random=22" alt="" /><span
+              >See image 22</span
+            ></a
+          >
+        </li>
+        <li id="img-23">
+          <a href="#img-23"
+            ><img src="https://picsum.photos/600/600?random=23" alt="" /><span
+              >See image 23</span
+            ></a
+          >
+        </li>
+        <li id="img-24">
+          <a href="#img-24"
+            ><img src="https://picsum.photos/600/600?random=24" alt="" /><span
+              >See image 24</span
+            ></a
+          >
+        </li>
+        <li id="img-25">
+          <a href="#img-25"
+            ><img src="https://picsum.photos/600/600?random=25" alt="" /><span
+              >See image 25</span
+            ></a
+          >
+        </li>
+        <li id="img-26">
+          <a href="#img-26"
+            ><img src="https://picsum.photos/600/600?random=26" alt="" /><span
+              >See image 26</span
+            ></a
+          >
+        </li>
+        <li id="img-27">
+          <a href="#img-27"
+            ><img src="https://picsum.photos/600/600?random=27" alt="" /><span
+              >See image 27</span
+            ></a
+          >
+        </li>
+        <li id="img-28">
+          <a href="#img-28"
+            ><img src="https://picsum.photos/600/600?random=28" alt="" /><span
+              >See image 28</span
+            ></a
+          >
+        </li>
+        <li id="img-29">
+          <a href="#img-29"
+            ><img src="https://picsum.photos/600/600?random=29" alt="" /><span
+              >See image 29</span
+            ></a
+          >
+        </li>
+        <li id="img-30">
+          <a href="#img-30"
+            ><img src="bd2-11.jpeg" alt="" /><span
+              >See image 30</span
+            ></a
+          >
+        </li>
+        <li id="img-31">
+          <a href="#img-31"
+            ><img src="https://picsum.photos/600/600?random=31" alt="" /><span
+              >See image 31</span
+            ></a
+          >
+        </li>
+        <li id="img-32">
+          <a href="#img-32"
+            ><img src="https://picsum.photos/600/600?random=32" alt="" /><span
+              >See image 32</span
+            ></a
+          >
+        </li>
+        <li id="img-33">
+          <a href="#img-33"
+            ><img src="https://picsum.photos/600/600?random=33" alt="" /><span
+              >See image 33</span
+            ></a
+          >
+        </li>
+        <li id="img-34">
+          <a href="#img-34"
+            ><img src="https://picsum.photos/600/600?random=34" alt="" /><span
+              >See image 34</span
+            ></a
+          >
+        </li>
+        <li id="img-35">
+          <a href="#img-35"
+            ><img src="https://picsum.photos/600/600?random=35" alt="" /><span
+              >See image 35</span
+            ></a
+          >
+        </li>
+        <li id="img-36">
+          <a href="#img-36"
+            ><img src="https://picsum.photos/600/600?random=36" alt="" /><span
+              >See image 36</span
+            ></a
+          >
+        </li>
+        <li id="img-37">
+          <a href="#img-37"
+            ><img src="https://picsum.photos/600/600?random=37" alt="" /><span
+              >See image 37</span
+            ></a
+          >
+        </li>
+        <li id="img-38">
+          <a href="#img-38"
+            ><img src="https://picsum.photos/600/600?random=38" alt="" /><span
+              >See image 38</span
+            ></a
+          >
+        </li>
+        <li id="img-39">
+          <a href="#img-39"
+            ><img src="https://picsum.photos/600/600?random=39" alt="" /><span
+              >See image 39</span
+            ></a
+          >
+        </li>
+        <li id="img-40">
+          <a href="#img-40"
+            ><img src="https://picsum.photos/600/600?random=40" alt="" /><span
+              >See image 40</span
+            ></a
+          >
+        </li>
+        <li id="img-41">
+          <a href="#img-41"
+            ><img src="https://picsum.photos/600/600?random=41" alt="" /><span
+              >See image 41</span
+            ></a
+          >
+        </li>
+        <li id="img-42">
+          <a href="#img-42"
+            ><img src="https://picsum.photos/600/600?random=42" alt="" /><span
+              >See image 42</span
+            ></a
+          >
+        </li>
+        <li id="img-43">
+          <a href="#img-43"
+            ><img src="https://picsum.photos/600/600?random=43" alt="" /><span
+              >See image 43</span
+            ></a
+          >
+        </li>
+        <li id="img-44">
+          <a href="#img-44"
+            ><img src="https://picsum.photos/600/600?random=44" alt="" /><span
+              >See image 44</span
+            ></a
+          >
+        </li>
+        <li id="img-45">
+          <a href="#img-45"
+            ><img src="https://picsum.photos/600/600?random=45" alt="" /><span
+              >See image 45</span
+            ></a
+          >
+        </li>
+        <li id="img-46">
+          <a href="#img-46"
+            ><img src="https://picsum.photos/600/600?random=46" alt="" /><span
+              >See image 46</span
+            ></a
+          >
+        </li>
+        <li id="img-47">
+          <a href="#img-47"
+            ><img src="https://picsum.photos/600/600?random=47" alt="" /><span
+              >See image 47</span
+            ></a
+          >
+        </li>
+        <li id="img-48">
+          <a href="#img-48"
+            ><img src="https://picsum.photos/600/600?random=48" alt="" /><span
+              >See image 48</span
+            ></a
+          >
+        </li>
+        <li id="img-49">
+          <a href="#img-49"
+            ><img src="https://picsum.photos/600/600?random=49" alt="" /><span
+              >See image 49</span
+            ></a
+          >
+        </li>
+        <li id="img-50">
+          <a href="#img-50"
+            ><img src="https://picsum.photos/600/600?random=50" alt="" /><span
+              >See image 50</span
+            ></a
+          >
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <img src="https://picsum.photos/600/600?random=1" alt="" />
+    <img src="https://picsum.photos/600/600?random=2" alt="" />
+    <img src="https://picsum.photos/600/600?random=3" alt="" />
+    <img src="https://picsum.photos/600/600?random=4" alt="" />
+    <img src="https://picsum.photos/600/600?random=5" alt="" />
+    <img src="https://picsum.photos/600/600?random=6" alt="" />
+    <img src="https://picsum.photos/600/600?random=7" alt="" />
+    <img src="https://picsum.photos/600/600?random=8" alt="" />
+    <img src="https://picsum.photos/600/600?random=9" alt="" />
+    <img src="https://picsum.photos/600/600?random=10" alt="" />
+    <img src="https://picsum.photos/600/600?random=11" alt="" />
+    <img src="https://picsum.photos/600/600?random=12" alt="" />
+    <img src="https://picsum.photos/600/600?random=13" alt="" />
+    <img src="https://picsum.photos/600/600?random=14" alt="" />
+    <img src="https://picsum.photos/600/600?random=15" alt="" />
+    <img src="https://picsum.photos/600/600?random=16" alt="" />
+    <img src="https://picsum.photos/600/600?random=17" alt="" />
+    <img src="https://picsum.photos/600/600?random=18" alt="" />
+    <img src="https://picsum.photos/600/600?random=19" alt="" />
+    <img src="https://picsum.photos/600/600?random=20" alt="" />
+    <img src="https://picsum.photos/600/600?random=21" alt="" />
+    <img src="https://picsum.photos/600/600?random=22" alt="" />
+    <img src="https://picsum.photos/600/600?random=23" alt="" />
+    <img src="https://picsum.photos/600/600?random=24" alt="" />
+    <img src="https://picsum.photos/600/600?random=25" alt="" />
+    <img src="https://picsum.photos/600/600?random=26" alt="" />
+    <img src="https://picsum.photos/600/600?random=27" alt="" />
+    <img src="https://picsum.photos/600/600?random=28" alt="" />
+    <img src="https://picsum.photos/600/600?random=29" alt="" />
+    <img src="bd2-11.jpeg" alt="" />
+    <img src="https://picsum.photos/600/600?random=31" alt="" />
+    <img src="https://picsum.photos/600/600?random=32" alt="" />
+    <img src="https://picsum.photos/600/600?random=33" alt="" />
+    <img src="https://picsum.photos/600/600?random=34" alt="" />
+    <img src="https://picsum.photos/600/600?random=35" alt="" />
+    <img src="https://picsum.photos/600/600?random=36" alt="" />
+    <img src="https://picsum.photos/600/600?random=37" alt="" />
+    <img src="https://picsum.photos/600/600?random=38" alt="" />
+    <img src="https://picsum.photos/600/600?random=39" alt="" />
+    <img src="https://picsum.photos/600/600?random=40" alt="" />
+    <img src="https://picsum.photos/600/600?random=41" alt="" />
+    <img src="https://picsum.photos/600/600?random=42" alt="" />
+    <img src="https://picsum.photos/600/600?random=43" alt="" />
+    <img src="https://picsum.photos/600/600?random=44" alt="" />
+    <img src="https://picsum.photos/600/600?random=45" alt="" />
+    <img src="https://picsum.photos/600/600?random=46" alt="" />
+    <img src="https://picsum.photos/600/600?random=47" alt="" />
+    <img src="https://picsum.photos/600/600?random=48" alt="" />
+    <img src="https://picsum.photos/600/600?random=49" alt="" />
+    <img src="https://picsum.photos/600/600?random=50" alt="" />
+  </main>
+  <a
+    class="bear-link"
+    href="https://twitter.com/intent/follow?screen_name=jh3yy"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    <svg
+      class="w-9"
+      viewBox="0 0 969 955"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="161.191"
+        cy="320.191"
+        r="133.191"
+        stroke="currentColor"
+        stroke-width="20"
+      ></circle>
+      <circle
+        cx="806.809"
+        cy="320.191"
+        r="133.191"
+        stroke="currentColor"
+        stroke-width="20"
+      ></circle>
+      <circle
+        cx="695.019"
+        cy="587.733"
+        r="31.4016"
+        fill="currentColor"
+      ></circle>
+      <circle
+        cx="272.981"
+        cy="587.733"
+        r="31.4016"
+        fill="currentColor"
+      ></circle>
+      <path
+        d="M564.388 712.083C564.388 743.994 526.035 779.911 483.372 779.911C440.709 779.911 402.356 743.994 402.356 712.083C402.356 680.173 440.709 664.353 483.372 664.353C526.035 664.353 564.388 680.173 564.388 712.083Z"
+        fill="currentColor"
+      ></path>
+      <rect
+        x="310.42"
+        y="448.31"
+        width="343.468"
+        height="51.4986"
+        fill="#FF1E1E"
+      ></rect>
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M745.643 288.24C815.368 344.185 854.539 432.623 854.539 511.741H614.938V454.652C614.938 433.113 597.477 415.652 575.938 415.652H388.37C366.831 415.652 349.37 433.113 349.37 454.652V511.741L110.949 511.741C110.949 432.623 150.12 344.185 219.845 288.24C289.57 232.295 384.138 200.865 482.744 200.865C581.35 200.865 675.918 232.295 745.643 288.24Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </a>
+  <script>
+    const links = document.querySelectorAll('a')
+    for (const link of links) {
+      link.addEventListener('click', (event) => {
+        event.preventDefault()
+        link.parentElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      })
+    }
+
+  </script>
+</body>
+</html>
